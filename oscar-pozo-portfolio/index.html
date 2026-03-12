@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Oscar Pozo Creativo</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* GLOBAL */
+
+body{
+background:#0a0a0a;
+color:white;
+font-family:Inter;
+overflow-x:hidden;
+cursor:none;
+}
+
+/* CURSOR */
+
+.cursor{
+width:18px;
+height:18px;
+border-radius:50%;
+background:white;
+position:fixed;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:9999;
+box-shadow:0 0 25px white;
+mix-blend-mode:difference;
+}
+
+/* HEADER */
+
+header{
+position:fixed;
+top:0;
+width:100%;
+padding:25px 70px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+transition:.4s;
+}
+
+header.scrolled{
+background:rgba(0,0,0,.85);
+backdrop-filter:blur(10px);
+}
+
+.logo img{
+height:60px;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.hero-center{
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+#heroLogo{
+position:absolute;
+width:28vw;
+max-width:360px;
+opacity:0;
+}
+
+#heroWord{
+position:absolute;
+font-family:Anton;
+font-size:clamp(70px,10vw,150px);
+letter-spacing:6px;
+white-space:nowrap;
+opacity:0;
+}
+
+/* TITULO PORTAFOLIO */
+
+.portfolio-title{
+background:white;
+color:black;
+text-align:center;
+padding:14px 0;
+margin-top:80px;
+margin-bottom:50px;
+font-family:Anton;
+font-size:38px;
+letter-spacing:3px;
+}
+
+/* PORTFOLIO */
+
+.portfolio-section{
+padding:60px 6%;
+max-width:1400px;
+margin:auto;
+}
+
+.portfolio-section h3{
+font-family:Anton;
+font-size:28px;
+margin-bottom:25px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
+}
+
+.project{
+position:relative;
+border-radius:12px;
+cursor:pointer;
+overflow:hidden;
+transition:.3s;
+}
+
+/* ZOOM */
+
+.project img{
+width:100%;
+border-radius:12px;
+transition:.35s;
+}
+
+.project:hover img{
+transform:scale(1.05);
+}
+
+/* NEON SOLO AL HOVER */
+
+.neon1:hover{box-shadow:0 0 25px #ff0000,0 0 70px #ff0000;}
+.neon2:hover{box-shadow:0 0 25px #00ff66,0 0 70px #00ff66;}
+.neon3:hover{box-shadow:0 0 25px #e6d3a3,0 0 70px #e6d3a3;}
+.neon4:hover{box-shadow:0 0 25px #63d5ff,0 0 70px #63d5ff;}
+
+.neon5:hover{box-shadow:0 0 25px #ff3030,0 0 70px #ff3030;}
+.neon6:hover{box-shadow:0 0 25px #ffd000,0 0 70px #ffd000;}
+.neon7:hover{box-shadow:0 0 25px #ff7300,0 0 70px #ff7300;}
+.neon8:hover{box-shadow:0 0 25px #0066ff,0 0 70px #0066ff;}
+
+.neon9:hover{box-shadow:0 0 25px #2b95ff,0 0 70px #2b95ff;}
+.neon10:hover{box-shadow:0 0 25px #2fd4d4,0 0 70px #2fd4d4;}
+.neon11:hover{box-shadow:0 0 25px #2b6cff,0 0 70px #2b6cff;}
+
+.neon12:hover{box-shadow:0 0 25px #3da9ff,0 0 70px #3da9ff;}
+.neon13:hover{box-shadow:0 0 25px #4cb5ff,0 0 70px #4cb5ff;}
+.neon14:hover{box-shadow:0 0 25px #7a4cff,0 0 70px #7a4cff;}
+
+/* INFO */
+
+.section{
+padding:70px 6%;
+max-width:1400px;
+margin:auto;
+}
+
+.section h2{
+font-family:Anton;
+font-size:42px;
+margin-bottom:25px;
+}
+
+.section p{
+line-height:1.8;
+max-width:900px;
+}
+
+/* VIEWER */
+
+.viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9000;
+}
+
+.viewer img{
+max-width:92vw;
+max-height:90vh;
+}
+
+.close{
+position:absolute;
+top:40px;
+right:60px;
+font-size:40px;
+cursor:pointer;
+}
+
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:50px;
+cursor:pointer;
+padding:20px;
+}
+
+.prev{left:40px;}
+.next{right:40px;}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:70px;
+border-top:1px solid #222;
+}
+
+.social{
+margin-top:25px;
+display:flex;
+justify-content:center;
+gap:28px;
+}
+
+.social img{
+width:22px;
+filter:invert(1);
+opacity:.8;
+transition:.3s;
+}
+
+.social img:hover{
+opacity:1;
+transform:scale(1.2);
+}
+
+/* BOTON MUSICA */
+
+#musicBtn{
+position:fixed;
+bottom:30px;
+right:30px;
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.2);
+backdrop-filter:blur(10px);
+padding:12px 16px;
+border-radius:40px;
+cursor:pointer;
+z-index:2000;
+transition:.3s;
+}
+
+#musicBtn:hover{
+transform:scale(1.1);
+}
+/* HOTSPOTS PARA VIDEOS PAGE 14 */
+
+.video-hotspot{
+position:absolute;
+cursor:pointer;
+display:none;
+}
+
+/* SOLO PARA LA PAGINA 14 */
+
+.viewer.page14 .video-hotspot{
+display:block;
+}
+
+/* POSICIÓN EXACTA SOBRE LOS 6 VIDEOS */
+
+.hs1{top:7%; left:6%; width:26%; height:40%;}
+.hs2{top:7%; left:37%; width:26%; height:40%;}
+.hs3{top:7%; left:68%; width:26%; height:40%;}
+
+.hs4{top:56%; left:6%; width:26%; height:40%;}
+.hs5{top:56%; left:37%; width:26%; height:40%;}
+.hs6{top:56%; left:68%; width:26%; height:40%;}
+/* ICONO PLAY */
+
+.video-hotspot::after{
+
+content:"▶";
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:60px;
+height:60px;
+
+background:rgba(0,0,0,0.6);
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+color:white;
+
+opacity:0;
+transition:0.3s;
+
+}
+
+.video-hotspot:hover::after{
+
+opacity:1;
+transform:translate(-50%,-50%) scale(1.2);
+
+}
+
+.video-hotspot:hover::after{
+
+opacity:1;
+transform:translate(-50%,-50%) scale(1.2);
+
+}
+.viewer-content{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.viewer-content img{
+width:70vw;
+max-height:90vh;
+object-fit:contain;
+display:block;
+}
+
+.video-hotspot{
+position:absolute;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<header id="header">
+
+<div class="logo">
+<img src="logo.png" onclick="goHome()">
+</div>
+
+<nav>
+<a id="contactBtn">CONTÁCTAME</a>
+</nav>
+
+</header>
+
+<section class="hero" id="inicio">
+
+<div class="hero-center">
+
+<img src="logo.png" id="heroLogo">
+<h1 id="heroWord">DISEÑO COMERCIAL</h1>
+
+</div>
+
+</section>
+
+<div class="portfolio-title">
+PORTAFOLIO PROFESIONAL
+</div>
+
+<!-- PORTFOLIO -->
+
+<section class="portfolio-section">
+
+<h3>DISEÑO DE EXHIBIDORES</h3>
+
+<div class="gallery">
+
+<div class="project neon1" onclick="openViewer(0)"><img src="images/page1.jpg"></div>
+<div class="project neon2" onclick="openViewer(1)"><img src="images/page2.jpg"></div>
+<div class="project neon3" onclick="openViewer(2)"><img src="images/page3.jpg"></div>
+<div class="project neon4" onclick="openViewer(3)"><img src="images/page4.jpg"></div>
+
+</div>
+
+</section>
+
+<section class="portfolio-section">
+
+<h3>DISEÑO DE EMPAQUES</h3>
+
+<div class="gallery">
+
+<div class="project neon5" onclick="openViewer(4)"><img src="images/page5.jpg"></div>
+<div class="project neon6" onclick="openViewer(5)"><img src="images/page6.jpg"></div>
+<div class="project neon7" onclick="openViewer(6)"><img src="images/page7.jpg"></div>
+<div class="project neon8" onclick="openViewer(7)"><img src="images/page8.jpg"></div>
+
+</div>
+
+</section>
+
+<section class="portfolio-section">
+
+<h3>DISEÑO EDITORIAL</h3>
+
+<div class="gallery">
+
+<div class="project neon9" onclick="openViewer(8)"><img src="images/page9.jpg"></div>
+<div class="project neon10" onclick="openViewer(9)"><img src="images/page10.jpg"></div>
+<div class="project neon11" onclick="openViewer(10)"><img src="images/page11.jpg"></div>
+
+</div>
+
+</section>
+
+<section class="portfolio-section">
+
+<h3>SOCIAL MEDIA</h3>
+
+<div class="gallery">
+
+<div class="project neon12" onclick="openViewer(11)"><img src="images/page12.jpg"></div>
+<div class="project neon13" onclick="openViewer(12)"><img src="images/page13.jpg"></div>
+<div class="project neon14" onclick="openViewer(13)"><img src="images/page14.jpg"></div>
+
+</div>
+
+</section>
+
+<!-- SECCIONES -->
+
+<section class="section">
+
+<h2>HABILIDADES</h2>
+
+<p>
+DISEÑO GRÁFICO • DISEÑO DE EMPAQUES • MATERIAL POP • BRANDING RETAIL • MOTION GRAPHICS • FOTOGRAFÍA • EDICIÓN DE VIDEO
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>HERRAMIENTAS</h2>
+
+<p>
+ADOBE ILLUSTRATOR • PHOTOSHOP • INDESIGN • LIGHTROOM • PREMIERE • SKETCHUP
+</p>
+
+</section>
+
+<section class="section">
+
+<h2>SOBRE MÍ</h2>
+
+<p>
+DISEÑADOR GRÁFICO SENIOR CON MÁS DE 5 AÑOS DE EXPERIENCIA EN RETAIL Y CONSUMO MASIVO.
+ESPECIALIZADO EN DESARROLLO DE MATERIAL POP, EMPAQUES COMERCIALES Y EJECUCIÓN DE CAMPAÑAS MULTITIENDA.
+EXPERIENCIA EN GESTIÓN DE PRODUCCIÓN GRÁFICA PARA 12 SUCURSALES A NIVEL NACIONAL.
+</p>
+
+</section>
+
+<footer id="contacto">
+
+<p>© 2026 OSCAR POZO CREATIVO</p>
+
+<div class="social">
+
+<a href="https://wa.link/wauh28" target="_blank">
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg">
+</a>
+
+<a href="https://www.linkedin.com/in/oscar-enrique-g-pozo-187a7b245/" target="_blank">
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg">
+</a>
+
+<a href="mailto:oscarpozo072@gmail.com">
+<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg">
+</a>
+
+</div>
+
+</footer>
+
+<audio id="bgMusic" loop>
+<source src="audio/music.mp3" type="audio/mp3">
+</audio>
+
+<div id="musicBtn">🔊</div>
+
+<div class="viewer" id="viewer">
+
+<span class="close" onclick="closeViewer()">✕</span>
+
+<div class="arrow prev" onclick="prevImage()">‹</div>
+<div class="arrow next" onclick="nextImage()">›</div>
+
+<div class="viewer-content">
+
+<img id="viewerImg">
+
+<div class="video-hotspot hs1" onclick="openVideo(0)"></div>
+<div class="video-hotspot hs2" onclick="openVideo(1)"></div>
+<div class="video-hotspot hs3" onclick="openVideo(2)"></div>
+
+<div class="video-hotspot hs4" onclick="openVideo(3)"></div>
+<div class="video-hotspot hs5" onclick="openVideo(4)"></div>
+<div class="video-hotspot hs6" onclick="openVideo(5)"></div>
+
+</div>
+
+</div>
+<div id="videoModal" style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:10000;
+">
+
+<span onclick="closeVideo()" style="
+position:absolute;
+top:40px;
+right:60px;
+font-size:40px;
+cursor:pointer;
+color:white;
+">✕</span>
+
+<iframe
+id="videoFrame"
+width="90%"
+height="90%"
+frameborder="0"
+allow="autoplay; fullscreen"
+allowfullscreen>
+</iframe>
+
+</div>
+<script>
+
+/* CURSOR */
+
+const cursor=document.getElementById("cursor")
+
+document.addEventListener("mousemove",e=>{
+cursor.style.top=e.clientY+"px"
+cursor.style.left=e.clientX+"px"
+})
+
+/* HEADER */
+
+const header=document.getElementById("header")
+
+window.addEventListener("scroll",()=>{
+if(window.scrollY>60){
+header.classList.add("scrolled")
+}else{
+header.classList.remove("scrolled")
+}
+})
+
+/* HERO */
+
+const heroLogo=document.getElementById("heroLogo")
+const heroWord=document.getElementById("heroWord")
+
+const words=[
+"DISEÑO COMERCIAL",
+"DISEÑO GRÁFICO",
+"DISEÑO DE EMPAQUES",
+"MATERIAL POP",
+"DISEÑO EDITORIAL",
+"MOTION GRAPHICS"
+]
+
+let i=0
+
+function startHero(){
+
+gsap.timeline()
+
+.fromTo(heroLogo,{scale:.6,opacity:0},{scale:1,opacity:1,duration:1.6})
+.to(heroLogo,{opacity:0,duration:.6})
+
+.fromTo(heroWord,{rotationY:-180,opacity:0},{rotationY:0,opacity:1,duration:1})
+
+setInterval(()=>{
+
+gsap.to(heroWord,{
+rotationY:180,
+opacity:0,
+duration:.6,
+onComplete:()=>{
+i=(i+1)%words.length
+heroWord.textContent=words[i]
+gsap.fromTo(heroWord,{rotationY:-180,opacity:0},{rotationY:0,opacity:1,duration:.6})
+}
+})
+
+},3000)
+
+}
+
+startHero()
+
+/* SCROLL */
+
+function goHome(){
+gsap.to(window,{duration:1,scrollTo:"#inicio"})
+}
+
+document.getElementById("contactBtn").onclick=()=>{
+gsap.to(window,{duration:1.2,scrollTo:"#contacto"})
+}
+
+/* VIEWER */
+
+const images=[
+"images/page1.jpg","images/page2.jpg","images/page3.jpg","images/page4.jpg",
+"images/page5.jpg","images/page6.jpg","images/page7.jpg","images/page8.jpg",
+"images/page9.jpg","images/page10.jpg","images/page11.jpg",
+"images/page12.jpg","images/page13.jpg","images/page14.jpg"
+]
+
+let current=0
+
+function openViewer(i){
+
+current=i
+viewer.style.display="flex"
+viewerImg.src=images[current]
+
+viewer.classList.remove("page14")
+
+if(i===13){
+viewer.classList.add("page14")
+}
+
+}
+const videos = [
+"https://www.youtube.com/embed/_1rf4JOH41o",
+"https://www.youtube.com/embed/NOEclfPwxBI",
+"https://www.youtube.com/embed/neG6CjZDWZM",
+"https://www.youtube.com/embed/vXl41Ze9UnY",
+"https://www.youtube.com/embed/MZhjJ3aTjLc",
+"https://www.youtube.com/watch?v=NOEclfPwxBI"
+];
+function openVideo(i){
+
+const modal = document.getElementById("videoModal")
+const frame = document.getElementById("videoFrame")
+
+modal.style.display = "flex"
+
+frame.src = videos[i] + "?autoplay=1&rel=0"
+
+}
+
+function closeVideo(){
+
+document.getElementById("videoModal").style.display="none"
+
+document.getElementById("videoFrame").src=""
+
+}
+function closeViewer(){
+viewer.style.display="none"
+}
+
+function nextImage(){
+current=(current+1)%images.length
+viewerImg.src=images[current]
+}
+
+function prevImage(){
+current=(current-1+images.length)%images.length
+viewerImg.src=images[current]
+}
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape") closeViewer()
+})
+
+/* MUSICA */
+
+const music = document.getElementById("bgMusic")
+const musicBtn = document.getElementById("musicBtn")
+
+music.volume = 0.08
+
+let started = false
+
+function enableMusic(){
+
+if(!started){
+
+music.play().then(()=>{
+musicBtn.innerHTML="🔊"
+}).catch(()=>{})
+
+started = true
+
+}
+
+}
+
+/* primera interacción del usuario */
+
+document.body.addEventListener("click", enableMusic, { once:true })
+document.body.addEventListener("touchstart", enableMusic, { once:true })
+
+/* boton manual */
+
+musicBtn.onclick = ()=>{
+
+if(music.paused){
+
+music.play()
+musicBtn.innerHTML="🔊"
+
+}else{
+
+music.pause()
+musicBtn.innerHTML="🔇"
+
+}
+
+
+playing=!playing
+
+}
+
+</script>
+
+</body>
+</html>
