@@ -2,7 +2,9 @@
 
 <html lang="es">
 <head>
-
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,6 +19,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+/* PRELOADER */
+
+#preloader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#050816;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.preloader-logo{
+width:150px;
+animation:logoIntro 1.6s ease forwards;
+}
+
+@keyframes logoIntro{
+0%{opacity:0; transform:scale(.6);}
+50%{opacity:1; transform:scale(1.1);}
+100%{opacity:1; transform:scale(1);}
+}
 
 /* GLOBAL */
 
@@ -25,9 +52,15 @@ background:#0a0a0a;
 color:white;
 font-family:Inter;
 overflow-x:hidden;
-cursor:none;
+@media (min-width:769px){
+body{cursor:none;}
+}
 }
 
+html, body{
+max-width:100%;
+overflow-x:hidden;
+}
 /* CURSOR */
 
 .cursor{
@@ -132,7 +165,42 @@ display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:30px;
 }
+@media (max-width:900px){
 
+.gallery{
+grid-template-columns:repeat(2,1fr);
+}
+
+header{
+padding:20px 25px;
+}
+
+.hero-logo{
+width:160px;
+}
+
+#heroWord{
+font-size:40px;
+}
+
+.section{
+padding:50px 25px;
+}
+
+}
+
+@media (max-width:500px){
+
+.gallery{
+grid-template-columns:1fr;
+}
+
+#heroWord{
+font-size:32px;
+letter-spacing:2px;
+}
+
+}
 .project{
 position:relative;
 border-radius:12px;
@@ -278,13 +346,6 @@ transition:.3s;
 #musicBtn:hover{
 transform:scale(1.1);
 }
-/* HOTSPOTS PARA VIDEOS PAGE 14 */
-
-.video-hotspot{
-position:absolute;
-cursor:pointer;
-display:none;
-}
 
 /* SOLO PARA LA PAGINA 14 */
 
@@ -292,15 +353,6 @@ display:none;
 display:block;
 }
 
-/* POSICIÓN EXACTA SOBRE LOS 6 VIDEOS */
-
-.hs1{top:7%; left:6%; width:26%; height:40%;}
-.hs2{top:7%; left:37%; width:26%; height:40%;}
-.hs3{top:7%; left:68%; width:26%; height:40%;}
-
-.hs4{top:56%; left:6%; width:26%; height:40%;}
-.hs5{top:56%; left:37%; width:26%; height:40%;}
-.hs6{top:56%; left:68%; width:26%; height:40%;}
 /* ICONO PLAY */
 
 .video-hotspot::after{
@@ -364,12 +416,29 @@ display:block;
 position:absolute;
 cursor:pointer;
 }
+.viewer img{
+max-width:95vw;
+max-height:80vh;
+}
+@media (max-width:600px){
+
+.logo img{
+height:45px;
+}
+
+nav a{
+font-size:14px;
+}
+
+}
 </style>
 
 </head>
 
 <body>
-
+<div id="preloader">
+    <img src="logo.png" alt="Logo" class="preloader-logo">
+</div>
 <div class="cursor" id="cursor"></div>
 
 <header id="header">
@@ -532,14 +601,6 @@ EXPERIENCIA EN GESTIÓN DE PRODUCCIÓN GRÁFICA PARA 12 SUCURSALES A NIVEL NACIO
 
 <img id="viewerImg">
 
-<div class="video-hotspot hs1" onclick="openVideo(0)"></div>
-<div class="video-hotspot hs2" onclick="openVideo(1)"></div>
-<div class="video-hotspot hs3" onclick="openVideo(2)"></div>
-
-<div class="video-hotspot hs4" onclick="openVideo(3)"></div>
-<div class="video-hotspot hs5" onclick="openVideo(4)"></div>
-<div class="video-hotspot hs6" onclick="openVideo(5)"></div>
-
 </div>
 
 </div>
@@ -621,7 +682,7 @@ gsap.timeline()
 .fromTo(heroLogo,{scale:.6,opacity:0},{scale:1,opacity:1,duration:1.6})
 .to(heroLogo,{opacity:0,duration:.6})
 
-.fromTo(heroWord,{rotationY:-180,opacity:0},{rotationY:0,opacity:1,duration:1})
+.fromTo(heroWord,{scale:0.5,opacity:0},{scale:1,opacity:1,duration:1})
 
 setInterval(()=>{
 
@@ -765,11 +826,22 @@ musicBtn.innerHTML="🔇"
 }
 
 
-playing=!playing
-
 }
 
 </script>
+<script>
 
+window.addEventListener("load", function(){
+setTimeout(()=>{
+document.getElementById("preloader").style.opacity="0";
+
+setTimeout(()=>{
+document.getElementById("preloader").style.display="none";
+},500);
+
+},1500);
+});
+
+</script>
 </body>
 </html>
