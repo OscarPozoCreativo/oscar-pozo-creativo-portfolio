@@ -99,10 +99,6 @@ align-items:center;
 z-index:99999;
 }
 
-.preloader-logo{
-width:150px;
-animation:logoIntro 1.6s ease forwards;
-}
 
 @keyframes logoIntro{
 0%{opacity:0; transform:scale(.6);}
@@ -544,9 +540,7 @@ display:block;
 </div>
 
 </div>
-<div id="preloader">
-    <img src="logo.png" alt="Logo" class="preloader-logo">
-</div>
+
 <div class="cursor" id="cursor"></div>
 
 <header id="header">
@@ -946,20 +940,7 @@ musicBtn.innerHTML="🔇"
 }
 
 </script>
-<script>
 
-window.addEventListener("load", function(){
-setTimeout(()=>{
-document.getElementById("preloader").style.opacity="0";
-
-setTimeout(()=>{
-document.getElementById("preloader").style.display="none";
-},500);
-
-},1500);
-});
-
-</script>
 <script>
 
 window.addEventListener("load",()=>{
