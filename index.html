@@ -1136,17 +1136,8 @@ p.y += (p.targetY - p.y)*0.05
 
 }
 
-if(p.targetX){
-
-p.x += (p.targetX - p.x)*0.06
-p.y += (p.targetY - p.y)*0.06
-
-}else{
-
 p.x += p.vx || 0
 p.y += p.vy || 0
-
-}
 
 p.alpha += 0.01
 p.alpha = Math.min(p.alpha,1)
