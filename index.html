@@ -22,6 +22,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+/* LOADER */
+
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0a0a0a;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999999;
+}
+
+/* contenedor */
+
+.logo-loader{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* logo */
+
+.logo-loader img{
+width:90px;
+height:auto;
+opacity:0;
+animation:logoReveal 2.2s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+/* animación */
+
+@keyframes logoReveal{
+
+0%{
+transform:scale(.6) rotate(-8deg);
+opacity:0;
+filter:blur(8px);
+}
+
+40%{
+transform:scale(1.05) rotate(0deg);
+opacity:1;
+filter:blur(0);
+}
+
+70%{
+transform:scale(1);
+}
+
+85%{
+filter:drop-shadow(0 0 20px rgba(255,255,255,.35));
+}
+
+100%{
+transform:scale(.9);
+opacity:0;
+}
+
+}
 /* PRELOADER */
 
 #preloader{
@@ -473,6 +535,15 @@ display:block;
 </head>
 
 <body>
+    <!-- LOADER LOGO -->
+
+<div id="loader">
+
+<div class="logo-loader">
+<img src="favicon-dark.png" alt="Oscar Pozo Logo">
+</div>
+
+</div>
 <div id="preloader">
     <img src="logo.png" alt="Logo" class="preloader-logo">
 </div>
@@ -887,6 +958,26 @@ document.getElementById("preloader").style.display="none";
 
 },1500);
 });
+
+</script>
+<script>
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+const loader = document.getElementById("loader")
+
+loader.style.transition="opacity .6s ease"
+loader.style.opacity="0"
+
+setTimeout(()=>{
+loader.remove()
+},600)
+
+},2000)
+
+})
 
 </script>
 </body>
