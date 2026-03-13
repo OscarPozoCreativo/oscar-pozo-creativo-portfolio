@@ -1009,54 +1009,7 @@ const canvas = document.getElementById("loaderParticles")
 const ctx = canvas.getContext("2d")
 
 let particles=[]
-function sampleLogoParticles(){
 
-const svgImg = new Image()
-svgImg.src = "logo.svg"
-
-svgImg.onload = ()=>{
-
-const sampler = document.getElementById("logoSampler")
-const sctx = sampler.getContext("2d")
-
-sampler.width = 220
-sampler.height = 220
-
-sctx.drawImage(svgImg,0,0,220,220)
-
-const data = sctx.getImageData(0,0,220,220).data
-
-particles = []
-
-for(let y=0;y<220;y+=2){
-
-for(let x=0;x<220;x+=2){
-
-const index = (y*220+x)*4
-const alpha = data[index+3]
-
-if(alpha > 150){
-
-particles.push({
-
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-targetX:(canvas.width/2 -110) + x,
-targetY:(canvas.height/2 -110) + y,
-size:1.5,
-alpha:1
-
-})
-
-}
-
-}
-
-}
-
-}
-
-}
 function resizeCanvas(){
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
@@ -1157,20 +1110,20 @@ requestAnimationFrame(drawParticles)
 
 window.addEventListener("load",()=>{
 
-sampleLogoParticles()
+createParticles()
 drawParticles()
 
 /* formar logo */
 
 setTimeout(()=>{
 formLogo()
-},900)
+},1000)
 
 /* explotar */
 
 setTimeout(()=>{
 explodeLogo()
-},200)
+},400)
 
 /* salida */
 
@@ -1179,13 +1132,13 @@ setTimeout(()=>{
 const loader=document.getElementById("loader")
 loader.classList.add("loader-hide")
 
-},4200)
+},7200)
 
 /* remover */
 
 setTimeout(()=>{
 document.getElementById("loader").remove()
-},5200)
+},8200)
 
 })
 
